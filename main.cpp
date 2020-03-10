@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     QCommandLineOption nomouse_arg(QStringList() << "n" << "nomouse", "Hides the mouse cursor.");
     cmdl.addOption(nomouse_arg);
 
-    QCommandLineOption speed_arg(QStringList() << "s" << "speed", "Animation speed.");
+    QCommandLineOption speed_arg(QStringList() << "s" << "speed", "Speed of the animation", "speed");
     cmdl.addOption(speed_arg);
 
     cmdl.process(app);
@@ -81,14 +81,16 @@ int main(int argc, char *argv[])
     if ( user_filename != "")
         filename = user_filename.toStdString();
 
-//    qDebug() << "Initial " << cmdl.value(speed_arg) << "\n";
-//    animationSpeed = cmdl.value(speed_arg).toUInt();
-
     if (cmdl.isSet(nomouse_arg))
     {
         QCursor cursor(Qt::BlankCursor);
         QApplication::setOverrideCursor(cursor);
         QApplication::changeOverrideCursor(cursor);
+    }
+
+    if (cmdl.isSet(speed_arg))
+    {
+        animationSpeed = cmdl.value(speed_arg).toUInt();
     }
 
     QWidget window;
