@@ -1,0 +1,5 @@
+<RCC>
+    <qresource lang="eng" prefix="/">
+        <file alias="peek">peek</file>
+    </qresource>
+</RCC>
