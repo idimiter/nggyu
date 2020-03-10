@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
     if ( user_filename != "")
         filename = user_filename.toStdString();
 
-    qDebug() << "Initial " << cmdl.value(speed_arg) << "\n";
+//    qDebug() << "Initial " << cmdl.value(speed_arg) << "\n";
 //    animationSpeed = cmdl.value(speed_arg).toUInt();
 
     if (cmdl.isSet(nomouse_arg))
@@ -123,6 +123,10 @@ int main(int argc, char *argv[])
 
     switch (align)
     {
+        case alignment::top_left:
+            window.move(screenRect.x(), 0);
+        break;
+
         case alignment::top:
             window.move(screenRect.x() + (screenRect.width() / 2) - (window.size().width() / 2), 0);
         break;
@@ -155,7 +159,6 @@ int main(int argc, char *argv[])
             window.move(screenRect.x() + screenRect.width() - window.size().width(), screenRect.height());
         break;
 
-        case alignment::top_left:
         default:
         break;
     }
