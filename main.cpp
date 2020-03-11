@@ -1,9 +1,8 @@
 #include <QtGui>
+
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 #include <QtWidgets>
 #endif
-#include <QWidget>
-#include <QObject>
 
 namespace
 {
@@ -98,7 +97,13 @@ int main(int argc, char *argv[])
     window.setAttribute(Qt::WA_ShowWithoutActivating);
     window.setWindowFlags(Qt::Tool | Qt::Dialog | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::MSWindowsFixedSizeDialogHint);
 
+    QRect screenRect = app.desktop()->availableGeometry(monitor_id);
+
     QMovie *movie = new QMovie(filename.c_str());
+    if (cmdl.isSet(fullscreen_arg))
+    {
+        movie->setScaledSize(screenRect.size());
+    }
     movie->setSpeed(animationSpeed);
 
     QLabel *processLabel = new QLabel("", &window);
@@ -121,7 +126,6 @@ int main(int argc, char *argv[])
     });
 
     window.setFixedSize(movie->currentImage().size().width(), movie->currentImage().size().height());
-    QRect screenRect = app.desktop()->availableGeometry(monitor_id);
 
     switch (align)
     {
